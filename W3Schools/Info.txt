@@ -1,2 +1,18 @@
 Python Tutorial von W3Schools
 in dem Ordner sind Dateien zu Uebungen auf der Website
+
+Python:
+web development (server-side),
+software development,
+mathematics,
+system scripting.
+
+Python can be used on a server to create web applications.
+Python can be used alongside software to create workflows.
+Python can connect to database systems. It can also read and modify files.
+Python can be used to handle big data and perform complex mathematics.
+Python can be used for rapid prototyping, or for production-ready software development.
+
+Python uses new lines to complete a command, as opposed to other programming languages which often use semicolons or parentheses.
+Python relies on indentation, using whitespace, to define scope; such as the scope of loops, functions and classes. Other programming languages often use curly-brackets for this purpose.
+

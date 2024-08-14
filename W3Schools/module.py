@@ -1,5 +1,5 @@
 import time
 #print(dir(time))
-print(time.localtime(20000))
+print(time.localtime())
 import random
 print(dir(random))
