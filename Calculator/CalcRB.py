@@ -1,9 +1,8 @@
 #Taschenrechner mit unbegrenzter Recheneingabe
 
+
 def Zahleneingabe():
         x = input("\neine Zahl: ")
-        global Zahlen
-        Zahlen = []
         while '0' or '1' or '2' or '3' or '4' or '5' or '6' or '7' or '8' or '9' in x:
            
             try:
@@ -30,11 +29,8 @@ moechtest du die Zahl erneut eingeben? drueke 'r' \nmoechtest du den Rechenvorga
     
 
 def Rechenoperation():
-    global r_operationen
-    global b
-    r_operationen = []
     if len(r_operationen) > 0:
-        ro = input("Rechenoperation?")
+        ro = input("Rechenoperation?: ")
     else:
         ro = input("""\nwelche Rechenoperation wilst du wählen? \n'+' fuer Addition \n'-' fuer Subtraktion \n'*' fuer Multiplikation
 '/' fuer Dividierung \netwas anderes fuer weitere Optionen: """)
@@ -113,10 +109,17 @@ def Rechnung():
           print(f"Dein Endergebnis: {Ergebnis[0]}\n\n")
 
 
+
 def Taschenrechner():
     global aktiv
+    global r_operationen
+    global b
+    global Zahlen
     aktiv = True
+    r_operationen = []
     b = 'l'
+    Zahlen = []
+
     while aktiv:
 
         while b != 'a':
