@@ -53,7 +53,7 @@ def Zahleneingabe():
                     return aktiv
                 else:
                     b = input("""\nmoechtest du die bisherige Rechnung durchfuehren? druecke 'a'
-    moechtest du die Zahl erneut eingeben? drueke 'r' \nmoechtest du den Rechenvorgang abbrechen? druecke 'e'\n""")
+moechtest du die Zahl erneut eingeben? drueke 'r' \nmoechtest du den Rechenvorgang abbrechen? druecke 'e'\n""")
     
 
 def Rechenoperation():
@@ -64,21 +64,73 @@ def Rechenoperation():
     else:
         ro = input("""\nwelche Rechenoperation wilst du wählen? \n'+' fuer Addition \n'-' fuer Subtraktion \n'*' fuer Multiplikation
 '/' fuer Dividierung \netwas anderes fuer weitere Optionen: """)
-    
-    if ro == '+':
-        r_operationen.append("+")
-    elif ro == '-':
-        r_operationen.append("-")
-    elif ro == '*':
-        r_operationen.append("*")
-    elif ro == '/':
-        r_operationen.append("/")
-    else:
-        b = input("willst du die bisherige Rechnung ausfuehren? druecke 'a' ")
+    while len(ro) > 0:
+        if ro == '+':
+            r_operationen.append("+")
+        elif ro == '-':
+            r_operationen.append("-")
+        elif ro == '*':
+            r_operationen.append("*")
+        elif ro == '/':
+            r_operationen.append("/")
+        else:
+            b = input("""\nwillst du die bisherige Rechnung ausfuehren? druecke 'a'
+willst du erneut versuchen eine Rechenoperation zu waehlen? druecke 'r' \nwillst du den Rechenvorgang abbrechen? druecke 'e' : """)
+            if b == 'a':
+                return b
+            elif b == 'r':
+                ro = input("""\nwelche Rechenoperation wilst du wählen? \n'+' fuer Addition \n'-' fuer Subtraktion \n'*' fuer Multiplikation
+'/' fuer Dividierung \netwas anderes fuer weitere Optionen: """)
+            elif b == 'e':
+                aktiv = False
+                return aktiv
+            else:
+                print("Jetzt gib mal was vernuenftiges ein Kollege Schnuerschuh!")
+                b = input("""\nwillst du die bisherige Rechnung ausfuehren? druecke 'a'
+willst du erneut versuchen eine Rechenoperation zu waehlen? druecke 'r' \nwillst du den Rechenvorgang abbrechen? druecke 'e' : """)
+            
 
 
 def Rechnung():
+    global Ergebnis
+    global Rechenweg
+    Ergebnis = [0]
+    Rechenweg = []
     for i in range(len(Zahlen)):
+      try:
+        if r_operationen[i] == '+':
+            try:
+                Rechenweg.append(Ergebnis[0], r_operationen[i], Zahlen[i + 1])
+                Ergebnis[0] = Ergebnis[0] + Zahlen[i + 1]
+            except:
+                Rechenweg.append(Zahlen[i], r_operationen[i], Zahlen[i + 1])
+                Ergebnis[0] = Zahlen[i] + Zahlen[i + 1]
+
+        elif r_operationen[i] == '-':
+            try:
+                Rechenweg.append(Ergebnis[0], r_operationen[i], Zahlen[i + 1])
+                Ergebnis[0] = Ergebnis[0] - Zahlen[i + 1]
+            except:
+                Rechenweg.append(Zahlen[i], r_operationen[i], Zahlen[i + 1])
+                Ergebnis[0] = Zahlen[i] - Zahlen[i + 1]
+
+        elif r_operationen[i] == '*':
+            try:
+                Rechenweg.append(Ergebnis[0], r_operationen[i], Zahlen[i + 1])
+                Ergebnis[0] = Ergebnis[0] * Zahlen[i + 1]
+            except:
+                Rechenweg.append(Zahlen[i], r_operationen[i], Zahlen[i + 1])
+                Ergebnis[0] = Zahlen[i] * Zahlen[i + 1]
+        elif r_operationen[i] == '/':
+            try:
+                Rechenweg.append(Ergebnis[0], r_operationen[i], Zahlen[i + 1])
+                Ergebnis[0] = Ergebnis[0] / Zahlen[i + 1]
+            except:
+                Rechenweg.append(Zahlen[i], r_operationen[i], Zahlen[i + 1])
+                Ergebnis[0] = Zahlen[i] / Zahlen[i + 1]
+      except:
+          print(f"\nDie Rechnung: {Rechenweg}")
+          print(f"Dein Endergebnis: {Ergebnis[0]}\n\n")
 
 
 def Taschenrechner():
@@ -91,26 +143,9 @@ def Taschenrechner():
             Rechenoperation()
         
         Rechnung()
-
-
-#while aktiv:
-    ro = input("""\nwelche Rechenoperation wilst du wählen? \n'1' fuer Addition \n'2' fuer Subtraktion \n'3' fuer Multiplikation
-'4' fuer Dividierung \noder irgendwas anderes zum abbrechen: """)
-    
-    if ro == '1':
-        Zahleneingabe()
-        z.addieren()
-    elif ro == '2':
-        Zahleneingabe()
-        z.subtrahieren()
-    elif ro == '3':
-        Zahleneingabe()
-        z.multiplizieren()
-    elif ro == '4':
-        Zahleneingabe()
-        z.dividieren()
-    else:
-        aktiv = False
-    print("\nTaschenrechner aus")
+        Rechenweg.clear
+        Ergebnis.clear
+        b = 'reset'
+    print("Taschenrechner aus.")
 
 Taschenrechner()
