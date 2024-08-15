@@ -5,6 +5,7 @@ i = float(i)
 print(i+i)
 '''
 
+'''
 x = input("\neine Zahl?: ")
 Zahlen = []
 while '0' or '1' or '2' or '3' or '4' or '5' or '6' or '7' or '8' or '9' in x:
@@ -15,4 +16,4 @@ while '0' or '1' or '2' or '3' or '4' or '5' or '6' or '7' or '8' or '9' in x:
         print(Zahlen)
     except:
         break
-    
+'''
