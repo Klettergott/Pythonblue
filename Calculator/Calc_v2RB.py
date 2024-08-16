@@ -47,10 +47,11 @@ def Rechenoperation():
             r_operationen.append("/")
             return
         else:
+            global b
             b = input("""\nwillst du die bisherige Rechnung ausfuehren? druecke 'a'
 willst du erneut versuchen eine Rechenoperation zu waehlen? druecke 'r' \n""")
             if b == 'a':
-                return b
+                return
             elif b == 'r':
                 ro = input("""\nwelche Rechenoperation wilst du wählen? \n'+' fuer Addition \n'-' fuer Subtraktion \n'*' fuer Multiplikation
 '/' fuer Dividierung \netwas anderes fuer weitere Optionen: \n""")
@@ -59,7 +60,7 @@ willst du erneut versuchen eine Rechenoperation zu waehlen? druecke 'r' \n""")
                 b = input("""\nwillst du die bisherige Rechnung ausfuehren? druecke 'a'
 willst du erneut versuchen eine Rechenoperation zu waehlen? druecke 'r' \n""")
                 if b == 'a':
-                    return b
+                    return
             
 
 
@@ -118,8 +119,9 @@ def Taschenrechner():
     while aktiv:
 
         while b != 'a':
-            b = Zahleneingabe()
-            b = Rechenoperation()
+            if Zahleneingabe() == 'a':
+                break
+            Rechenoperation()
         
         Rechnung()
 
