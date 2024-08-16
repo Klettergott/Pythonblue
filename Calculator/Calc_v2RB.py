@@ -157,3 +157,13 @@ for i in range(len(Rechenweg)):
         except:
             continue
 '''
+
+'''
+pow(x, y) function = x ^ y
+'''
+
+'''
+math module:
+math.pow(x, y)
+math.sqrt(x) = Wurzel aus x
+'''
