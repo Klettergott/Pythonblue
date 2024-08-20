@@ -156,6 +156,19 @@ for i in range(len(Rechenweg)):
             Rechenweg.insert(i + 2, Ergebnis[0])
         except:
             continue
+for i in range(len(Rechenweg)):
+    if '+' in Rechenweg[i]:
+        try:
+            Ergebnis[0] = Rechenweg[i - 1] + Rechenweg[i + 1]
+            Rechenweg.insert(i + 2, Ergebnis[0])
+        except:
+            continue
+    if '-' in Rechenweg[i]:
+        try:
+            Ergebnis[0] = Rechenweg[i - 1] - Rechenweg[i + 1]
+            Rechenweg.insert(i + 2, Ergebnis[0])
+        except:
+            continue
 '''
 
 '''
@@ -164,6 +177,6 @@ pow(x, y) function = x ^ y
 
 '''
 math module:
-math.pow(x, y)
+math.pow(x, y) x hoch y
 math.sqrt(x) = Wurzel aus x
 '''
