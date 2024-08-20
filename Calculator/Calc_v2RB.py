@@ -65,40 +65,30 @@ willst du erneut versuchen eine Rechenoperation zu waehlen? druecke 'r' \n""")
 
 
 def Rechnung():
-    for i in range(len(Zahlen) - 1):
-        if r_operationen[i] == '+':
-            try:
-                Rechenweg.append(Ergebnis[0]), Rechenweg.append(r_operationen[i]), Rechenweg.append(Zahlen[i + 1])
-                Ergebnis[0] = Ergebnis[0] + Zahlen[i + 1]
-            except:
-                Rechenweg.append(Zahlen[i]), Rechenweg.append(r_operationen[i]), Rechenweg.append(Zahlen[i + 1])
-                Ergebnis.append(Zahlen[i] + Zahlen[i + 1])
+    for i in range(len(r_operationen)):
+        Rechenweg.append(Zahlen[i]), Rechenweg.append(r_operationen[i])
+        if i == len(r_operationen):
+            if len(Zahlen) > len(r_operationen):
+                Rechenweg.append(Zahlen[i + 1])
+            else:
+                Rechenweg.pop()
 
-        elif r_operationen[i] == '-':
-            try:
-                Rechenweg.append(Ergebnis[0]), Rechenweg.append(r_operationen[i]), Rechenweg.append(Zahlen[i + 1])
-                Ergebnis[0] = Ergebnis[0] - Zahlen[i + 1]
-            except:
-                Rechenweg.append(Zahlen[i]), Rechenweg.append(r_operationen[i]), Rechenweg.append(Zahlen[i + 1])
-                Ergebnis.append(Zahlen[i] - Zahlen[i + 1])
+    for i in range(len(Rechenweg)):
+        if '/' in Rechenweg[i]:
+            Ergebnis.insert(i, Rechenweg[i - 1] / Rechenweg[i + 1])
 
-        elif r_operationen[i] == '*':
-            try:
-                Rechenweg.append(Ergebnis[0]), Rechenweg.append(r_operationen[i]), Rechenweg.append(Zahlen[i + 1])
-                Ergebnis[0] = Ergebnis[0] * Zahlen[i + 1]
-            except:
-                Rechenweg.append(Zahlen[i]), Rechenweg.append(r_operationen[i]), Rechenweg.append(Zahlen[i + 1])
-                Ergebnis.append(Zahlen[i] * Zahlen[i + 1])
-        elif r_operationen[i] == '/':
-            try:
-                Rechenweg.append(Ergebnis[0]), Rechenweg.append(r_operationen[i]), Rechenweg.append(Zahlen[i + 1])
-                Ergebnis[0] = Ergebnis[0] / Zahlen[i + 1]
-            except:
-                Rechenweg.append(Zahlen[i]), Rechenweg.append(r_operationen[i]), Rechenweg.append(Zahlen[i + 1])
-                Ergebnis.append(Zahlen[i] / Zahlen[i + 1])
+        if '*' in Rechenweg[i]:
+            Ergebnis.insert(i, Rechenweg[i - 1] * Rechenweg[i + 1])
+
+    for i in range(len(Rechenweg)):
+        if '+' in Rechenweg[i]:
+            Ergebnis.insert(i, Rechenweg[i - 1] + Rechenweg[i + 1])
+
+        if '-' in Rechenweg[i]:
+            Ergebnis.insert(i, Rechenweg[i - 1] - Rechenweg[i + 1])
 
     print(f"\nDie Rechnung: {Rechenweg}")
-    print(f"Dein Endergebnis: {Ergebnis}\n\n")
+    print(f"Dein Endergebnis: {Rechenweg[-1]}\n\n")
 
 
 
@@ -141,36 +131,29 @@ Taschenrechner()
 
 #Funktion fuer Punkt vor Strich Rechnung:
 '''
-for i in range(len(Zahlen) - 1):
-    Rechenweg.append(Zahlen[i]), Rechenweg.append(r_operationen[i]), Rechenweg.append(Zahlen[i + 1])
-for i in range(len(Rechenweg)):
-    if '/' in Rechenweg[i]:
-        try:
-            Ergebnis[0] = Rechenweg[i - 1] / Rechenweg[i + 1]
-            Rechenweg.insert(i + 2, Ergebnis[0])
-        except:
-            continue
-    if '*' in Rechenweg[i]:
-        try:
-            Ergebnis[0] = Rechenweg[i - 1] * Rechenweg[i + 1]
-            Rechenweg.insert(i + 2, Ergebnis[0])
-        except:
-            continue
-for i in range(len(Rechenweg)):
-    if '+' in Rechenweg[i]:
-        try:
-            Ergebnis[0] = Rechenweg[i - 1] + Rechenweg[i + 1]
-            Rechenweg.insert(i + 2, Ergebnis[0])
-        except:
-            continue
-    if '-' in Rechenweg[i]:
-        try:
-            Ergebnis[0] = Rechenweg[i - 1] - Rechenweg[i + 1]
-            Rechenweg.insert(i + 2, Ergebnis[0])
-        except:
-            continue
-'''
+def Rechnung():
+    for i in range(len(r_operationen)):
+        Rechenweg.append(Zahlen[i]), Rechenweg.append(r_operationen[i])
+        if i == len(r_operationen):
+            if len(Zahlen) > len(r_operationen):
+                Rechenweg.append(Zahlen[i + 1])
+            else:
+                Rechenweg.pop()
 
+    for i in range(len(Rechenweg)):
+        if '/' in Rechenweg[i]:
+            Ergebnis.insert(i, Rechenweg[i - 1] / Rechenweg[i + 1])
+
+        if '*' in Rechenweg[i]:
+            Ergebnis.insert(i, Rechenweg[i - 1] * Rechenweg[i + 1])
+
+    for i in range(len(Rechenweg)):
+        if '+' in Rechenweg[i]:
+            Ergebnis.insert(i, Rechenweg[i - 1] + Rechenweg[i + 1])
+
+        if '-' in Rechenweg[i]:
+            Ergebnis.insert(i, Rechenweg[i - 1] - Rechenweg[i + 1])
+'''
 '''
 pow(x, y) function = x ^ y
 '''
