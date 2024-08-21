@@ -1,4 +1,5 @@
 using System;
+
 [] Zahlen;
 class Funktionen
 {
@@ -39,4 +40,6 @@ class Funktionen
         }
     }
 }
-Console.WriteLine(Funktionen.Zahleneingabe())
+Funktionen.Zahleneingabe();
+Console.WriteLine("Hello there")
+Console.ReadLine()
