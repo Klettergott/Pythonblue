@@ -25,6 +25,8 @@ moechtest du die Zahl erneut eingeben? drueke 'r' \n""")
 moechtest du die Zahl erneut eingeben? drueke 'r' \n""")
                     if b == 'a':
                         return b
+                    elif b == 'r':
+                        x = input("\neine Zahl: ")
     
 
 def Rechenoperation():
@@ -67,28 +69,82 @@ willst du erneut versuchen eine Rechenoperation zu waehlen? druecke 'r' \n""")
 def Rechnung():
     for i in range(len(r_operationen)):
         Rechenweg.append(Zahlen[i]), Rechenweg.append(r_operationen[i])
-        if i == len(r_operationen):
+        if i == len(r_operationen) - 1:
             if len(Zahlen) > len(r_operationen):
                 Rechenweg.append(Zahlen[i + 1])
             else:
                 Rechenweg.pop()
 
+
+    """ Hauptproblem ist noch, dass wenn man - 12 * 12 * 12 rechnen würde, nicht die Vorzeichen Vergabe mit beim Verrechnen ins Endergebnis
+    berücksichtigt wird, sondern erstmal Ergebnis[0] -= 12 * 12 hinzugefügt wird und dann Ergebnis[0] += 12 * 12 im Anschluss draufgerechnet wird
+    # Ich vermute man brauch eine andere Hinzufügungsmethode statt Ergebnis[0] +/-= Rechnung, eventuell mit 
+    # mehreren zwischenergebnissen, die am Ende des Rechenweges zusammengeführt werden.
+    # vielleicht wenn + oder - auftaucht und danach nur Operatoren wie * und / folgen solange die nächsten Sachen verrechnen, bis als nächster Rechenoperator
+    # wieder ein + oder - auftaucht oder der Rechenweg ein Ende hat und im Anschluss zum Ergebnis hinzufügen mit jeweiligem Vorzeichen  """
+
+    #wenn kein Plus Minus davor steht einzeln multiplizieren/dividieren, ansonsten auslassen
     for i in range(len(Rechenweg)):
-        if '/' in Rechenweg[i]:
-            Ergebnis.insert(i, Rechenweg[i - 1] / Rechenweg[i + 1])
+        try:
+            if Rechenweg[i] == '/' and Rechenweg[i - 2] != '-' and Rechenweg[i - 2] != '+':
+                Ergebnis[0] += Rechenweg[i - 1] / Rechenweg[i + 1]
+            elif Rechenweg[i] == '/' and Rechenweg[i - 2] == '-':
+                continue
+            elif Rechenweg[i] == '/' and Rechenweg[i - 2] == '+':
+                continue
 
-        if '*' in Rechenweg[i]:
-            Ergebnis.insert(i, Rechenweg[i - 1] * Rechenweg[i + 1])
+            elif Rechenweg[i] == '*' and Rechenweg[i - 2] != '-' and Rechenweg[i - 2] != '+':
+                Ergebnis[0] += Rechenweg[i - 1] * Rechenweg[i + 1]
+            elif Rechenweg[i] == '*' and Rechenweg[i - 2] == '-':
+                continue
+            elif Rechenweg[i] == '*' and Rechenweg[i - 2] == '+':
+                continue
+        except:
+            try:
+                if Rechenweg[i] == '/' and Rechenweg[i - 2] == '/':
+                    Ergebnis[0] /= Rechenweg[i + 1]
+                elif Rechenweg[i] == '/' and Rechenweg[i - 2] == '*':
+                    Ergebnis[0] /= Rechenweg[i + 1]
 
-    for i in range(len(Rechenweg)):
-        if '+' in Rechenweg[i]:
-            Ergebnis.insert(i, Rechenweg[i - 1] + Rechenweg[i + 1])
+                elif Rechenweg[i] == '*' and Rechenweg[i - 2] == '/':
+                    Ergebnis[0] *= Rechenweg[i + 1]
+                elif Rechenweg[i] == '*' and Rechenweg[i - 2] == '*':
+                    Ergebnis[0] *= Rechenweg[i + 1]
+            except:
+                if Rechenweg[i] == '/':
+                    Ergebnis[0] += Rechenweg[i - 1] / Rechenweg[i + 1]
 
-        if '-' in Rechenweg[i]:
-            Ergebnis.insert(i, Rechenweg[i - 1] - Rechenweg[i + 1])
+                elif Rechenweg[i] == '*':
+                    Ergebnis[0] += Rechenweg[i - 1] * Rechenweg[i + 1]
+                continue
+
+        #Plus Minus erkennen und zuerst multiplizieren/dividieren
+        try:
+            if Rechenweg[i] == '+' and Rechenweg[i + 2] == '/':
+                Ergebnis[0] += Rechenweg[i + 1] / Rechenweg[i + 3]
+
+            elif Rechenweg[i] == '+' and Rechenweg[i + 2] == '*':
+                Ergebnis[0] += Rechenweg[i + 1] * Rechenweg[i + 3]
+        except:
+            if Rechenweg[i] == '+':
+                Ergebnis[0] += Rechenweg[i + 1]
+            continue
+
+        try:
+            if Rechenweg[i] == '-' and Rechenweg[i + 2] == '/':
+                Ergebnis[0] -= Rechenweg[i + 1] / Rechenweg[i + 3]
+
+            elif Rechenweg[i] == '-' and Rechenweg[i + 2] == '*':
+                Ergebnis[0] -= Rechenweg[i + 1] * Rechenweg[i + 3]
+
+        except:
+            if Rechenweg[i] == '-':
+                Ergebnis[0] -= Rechenweg[i + 1]
+            continue
+
 
     print(f"\nDie Rechnung: {Rechenweg}")
-    print(f"Dein Endergebnis: {Rechenweg[-1]}\n\n")
+    print(f"Dein Endergebnis: {Ergebnis} {sum(Ergebnis)}\n\n")
 
 
 
@@ -103,7 +159,7 @@ def Taschenrechner():
     r_operationen = []
     b = 'l'
     Zahlen = []
-    Ergebnis = []
+    Ergebnis = [0]
     Rechenweg = []
 
     while aktiv:
@@ -129,31 +185,6 @@ def Taschenrechner():
 
 Taschenrechner()
 
-#Funktion fuer Punkt vor Strich Rechnung:
-'''
-def Rechnung():
-    for i in range(len(r_operationen)):
-        Rechenweg.append(Zahlen[i]), Rechenweg.append(r_operationen[i])
-        if i == len(r_operationen):
-            if len(Zahlen) > len(r_operationen):
-                Rechenweg.append(Zahlen[i + 1])
-            else:
-                Rechenweg.pop()
-
-    for i in range(len(Rechenweg)):
-        if '/' in Rechenweg[i]:
-            Ergebnis.insert(i, Rechenweg[i - 1] / Rechenweg[i + 1])
-
-        if '*' in Rechenweg[i]:
-            Ergebnis.insert(i, Rechenweg[i - 1] * Rechenweg[i + 1])
-
-    for i in range(len(Rechenweg)):
-        if '+' in Rechenweg[i]:
-            Ergebnis.insert(i, Rechenweg[i - 1] + Rechenweg[i + 1])
-
-        if '-' in Rechenweg[i]:
-            Ergebnis.insert(i, Rechenweg[i - 1] - Rechenweg[i + 1])
-'''
 '''
 pow(x, y) function = x ^ y
 '''

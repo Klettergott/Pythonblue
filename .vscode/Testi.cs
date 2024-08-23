@@ -1,6 +1,6 @@
 class pro
 {
-    pro.count()
+    static void Main(string[] args)
     {
     int c = 4;
     float b = 5.7;
@@ -8,4 +8,4 @@ class pro
     Console.WriteLine($"Ergebnis von {c} + {b} : {g}");
     }
 }
-    pro.count();
+    pro.Main();
